@@ -8,3 +8,4 @@ pydantic_core==2.20.1
 python-dotenv==1.0.1
 requests==2.25.1
 pytest  # Si usas pytest para prueba
+bs4

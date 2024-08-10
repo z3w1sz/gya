@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/products.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+    <title>Product Info</title>
+</head>
+<body>
+    <div class="header_container">
+        <div class="search-container">
+            <div class="barra_de_busqueda">
+                <input type="text" id="search-bar" placeholder="Producto o código">
+                <button id="search-button" class="button"></button>
+            </div>
+        </div>
+        <button id="toggle-button"></button>
+    </div>
+
+    <!-- Contenedor donde se mostrarán los productos -->
+     <div class="container_products">
+         <div id="product-results" class="product-grid">
+             <!-- Los productos se cargarán aquí dinámicamente con JavaScript -->
+         </div>
+     </div>
+
+    <script src="static/script.js"></script>
+    <script> 
+        // JavaScript para manejar la búsqueda y mostrar resultados
+        document.getElementById('search-button').addEventListener('click', async () => {
+            const query = document.getElementById('search-bar').value;
+            const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+            const html = await response.text();
+            document.getElementById('product-results').innerHTML = html;
+        });
+    </script>
+</body>
+</html>

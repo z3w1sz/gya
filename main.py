@@ -4,9 +4,6 @@ from fastapi.staticfiles import StaticFiles
 import httpx
 from bs4 import BeautifulSoup
 
-# Precio de envio
-ENVIO = 470
-
 app = FastAPI()
 
 # Configura el manejo de archivos estáticos
@@ -42,8 +39,7 @@ async def search(query: str = Query(..., min_length=1)):
         link_text = link_tag.get_text() if link_tag else ""
         price_text = " ".join([p.get_text() for p in price_tags])
         price = price_text.split("$")[1].split(" ")[0]
-        precio_y_envio = int(price) + ENVIO
-        new_price = str(int(precio_y_envio * 1.9))
+        new_price = str(int(int(price) * 1.8))
 
         # Adaptación para mostrar la imagen a la izquierda y la información a la derecha
         html_results += f"""
@@ -52,7 +48,6 @@ async def search(query: str = Query(..., min_length=1)):
             <div class="product-info">
                 <h3><a class="product_link" href="{link_href}">{link_text}</a></h3>
                 <p class="original_price">Precio original: <span class="envio_price">${price}</span></p>
-                <p class="envio">Envio: <span>${ENVIO}</span></p>
                 <p class="codigo">Código: {codigo}</p>
                 <span class="price">${new_price}</span>
             </div>
